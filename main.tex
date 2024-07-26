@@ -670,7 +670,7 @@
     \section{Hopf Algebren und Algebraische Gruppen}
     % ****************************************
 
-    \begin{definition}
+    \begin{definition}\label{def:1}
         \begin{enumerate}
             \item Eine \(k\)-Algebra \(A\) mit \(k\)-Algebrahomomorphismen \(\Delta, \epsilon, S\), sodass die Diagramme aus \Cref{prop:1} kommutieren heißt \emph{(kommutative) Hopf Algebra}.
                 Drücken wir die Diagramme als Formeln aus, erhalten wir die Axiome
@@ -759,7 +759,7 @@
         Die induzierte Darstellung aus \Cref{bem:3} wird \emph{reguläre Darstellung} genannt.
     \end{definition}
 
-    \begin{lemma}
+    \begin{lemma}\label{lem:2}
         Jede \(\mathcal{G}\)-Darstellung \((V, m)\) einer affinen algebraischen Gruppe \(\mathcal{G}\) ist lokal endlich.
     \end{lemma}
     \begin{proof}[Ohne Beweis]
@@ -770,11 +770,39 @@
         Dann gibt es einen endlich-dimensionalen \(k\)-Vektorraum \(V\) und einen injektiven Morphismus \(\rho: \mathcal{G} \hookrightarrow \text{GL}_V\).
     \end{satz}
     \begin{proof}
-        
+        Sei \(A = k[\mathcal{G}]\) die endlich erzeugte Koordinatenalgebra von \(\mathcal{G}\) und \(W\) ein endlichdimensionaler \(k\)-Untervektorraum von \(A\), der \(A\) als \(k\)-Algebra erzeugt.
+        Nach \Cref{lem:2} ist \(W\) in einer endlichdimensionalen Unterdarstellung \(V\) der regulären Darstellung \((A, \Delta)\) enthalten.
+        Wir bezeichnen mit 
+        \[\rho: G \longrightarrow \text{GL}_V\]
+        die zugehörige natürliche Transformation.
+        Zu zeigen ist, dass \(\rho\) injektiv ist.
+        Man kann zeigen, dass dies äquivalent dazu ist, dass der duale Morphismus
+        \[\rho^\ast: k[\text{GL}_V] \longrightarrow A\]
+        surjektiv ist.
+        Sei \(\{v_1, \ldots, v_n\}\) eine Basis von \(V\), und betrachte
+        \[\Delta(v_j) = \sum_{i=1}^{n} f_{ij} \otimes v_i\]
+        mit \(f_{ij} \in A\).
+        Wegen \Cref{prop:2} ist die natürliche Transformation \(\rho\) gegeben durch
+        \[\rho_R(g)(v_j) = (g \otimes \id_V)(\Delta(v_j)) = \sum_{i=1}^{n} g(f_{ij}) \otimes v_i\]
+        für alle \(g \in \mathcal{G}(R) \cong \Hom_{k\textbf{-Alg}}(A, R)\) und alle \(j \in \{1, \ldots, n\}\), also wird \(\rho_R(g)\) von der Matrix
+        \[\rho_R(g) = (g(f_{ij}))_{ij} \in \text{GL}_V(R)\]
+        dargestellt.
+        Es folgt weiter
+        \[\rho^\ast(X_{ij}) = \rho_A(\id_A)(X_{ij}) = f_{ij}\]
+        für alle \(i,j\), wobei \(X_{ij}\) die Koordinatenfunktionen von 
+        \[k[\text{GL}_V] \cong \ringquot{k[X_{11}, \ldots, X_{nn}, d]}{(d\cdot \det(X_{ij}) - 1)}.\]
+        Andererseits folgt aus \Cref{def:1}, dass
+        \[v_j = m(\id \otimes \varepsilon)\Delta(v_j) = m \left( \sum_{i=1}^{n} f_{ij} \otimes \varepsilon(v_i) \right) = \sum_{i=1}^{n} \varepsilon(v_i) \cdot f_{ij}.\]
+        Es folgt \(v_j \in \text{im} \; \rho^\ast\), für alle \(j \in \{1, \ldots, n\}\).
+        Da \(A\) von den Elementen \(v_1, \ldots, v_n\) als \(k\)-Algebra erzeugt wird, folgt dass \(\rho^\ast\) surjektiv ist, was zu zeigen war.
     \end{proof}
 
     \begin{korollar}
         Affine algebraische Gruppen über \(k\) sind linear, d.h. sie sind abgeschlossene Untergruppen einer Gruppe \(\text{GL}_n\).
         Insbesondere sind alle affine algebraische Gruppen Matrixgruppen.
     \end{korollar}
+
+    \begin{beispiel}
+        
+    \end{beispiel}
 \end{document}
