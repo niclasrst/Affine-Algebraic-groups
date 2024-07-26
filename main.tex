@@ -28,6 +28,7 @@
 \usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}
 \hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black}
 \usepackage[nameinlink,german]{cleveref}
+\Crefname{proposition}{Proposition}{Propositionen}
 
 % shortcuts
 \newcommand{\N}{\mathbb{N}}
@@ -44,6 +45,7 @@
 \newcommand{\dom}{\text{dom}}
 \newcommand{\Ob}{\text{Ob}}
 \newcommand{\Ar}{\text{Ar}}
+\newcommand{\polynomials}{k[X_1, \ldots, X_n]}
 
 % math styles
 \newtheoremstyle{basicstyle}{1em}{1em}{\normalfont}{}{\bfseries}{}{ }{}
@@ -132,6 +134,9 @@
             \item Der sogenannte \emph{Strukturhomomorphismus} 
                 \[\varphi: R \longrightarrow A, \qquad \lambda \mapsto \lambda \cdot 1_A\]
                 ist ein Ringhomomorphismus von \(R\) in das Zentrum \(Z(A)\) von \(A\).
+
+            \item Ein Morphismus zwischen \(k\)-Algebren \(A\) und \(B\) ist ein Ringhomomorphismus
+                \[\xi: A \longrightarrow B, \qquad\text{mit}\qquad \xi \circ \varphi_A = \varphi_B.\]
         \end{enumerate}
     \end{erinnerung}
 
@@ -168,7 +173,8 @@
             \item Der zur Abelisierung gehörende Funktor \((\;\cdot\;)_{\text{ab}}: \textbf{Grp} \to \textbf{Ab}, \; G \mapsto \ringquot{G}{[G,G]}\), wobei \([G,G]\) die kommutator Untergruppe erzeugt von \(g_1g_2g_1^{-1}g_2^{-1}\) bezeichnet.
                 Auf Morphismen ist dieser gegeben durch
                 \[(f: G \to H) \mapsto (G_{\text{ab}} \to H_{\text{ab}}, \; [g] \mapsto [f(g)]).\]
-            \item Der kontravariante \emph{Dualraum-Funktor} \((\;\cdot\;)^\ast : \textbf{Vec}_k \to \textbf{Vec}_k, \; V \mapsto V^\ast = \Hom_k(V,k)\).
+            \item Der kontravariante \emph{Dualraum-Funktor}
+                \[\Hom_{\textbf{Vec}_k}(\;\cdot\;, k): \textbf{Vec}_k \to \textbf{Vec}_k, \qquad V \mapsto V^\ast = \Hom_k(V,k).\]
                 Auf Morphismen wirkt dieser durch
                 \[(f: V \to W) \mapsto (f^\ast : W^\ast \to V^\ast, \; \varphi \mapsto \varphi \circ f).\]
         \end{enumerate}
@@ -194,7 +200,7 @@
         Eine natürliche Transformation heißt \emph{natürlicher Isomorphismus}, wenn alle Komponenten \(\eta_A\) Isomorphismen sind.
     \end{definition}
 
-    \begin{bemerkung}
+    \begin{bemerkung}\label{bem:1}
         Natürliche Transformationen werden auch \emph{Morphismen von Funktoren} genannt, es macht also auch Sinn eine Kategorie von Funktoren zu definieren.
     \end{bemerkung}
 
@@ -245,7 +251,7 @@
     %     Wir schreiben auch \(h^X := \Hom_{\mathcal{C}}(X, \;\cdot\;)\) und nennen \(h^X\) den \emph{(partiellen) Hom-Funktor}.
     % \end{bemerkung}
 
-    \begin{definition}
+    \begin{definition}\label{def:darstellbar}
         Sei \(\mathcal{C}\) eine (lokal kleine) Kategorie, dann ist für jedes Objekt \(A \in \Ob(\mathcal{C})\)
         \[h^A: \mathcal{C} \longrightarrow \textbf{Set},\]
         ein kovarianter Funktor, gegeben auf Objekten durch
@@ -253,6 +259,7 @@
         und auf Morphismen durch
         \[\left(X \overset{f}{\longrightarrow} Y\right) \quad\mapsto\quad \begin{pmatrix} \Hom_{\mathcal{C}}(A, X) \longrightarrow \Hom_{\mathcal{C}}(A, Y) \\ g \mapsto g \circ f \end{pmatrix}\]
         Ein Funktor \(\mathcal{F}: \mathcal{C} \to \textbf{Set}\) heißt \emph{darstellbar}, wenn es ein Objekt \(A\) in \(\Ob(\mathcal{C})\) gibt, sodass \(\mathcal{F}\) isomorph zu \(h^A\) ist. %er isomorph zu einem Funktor \(h^X\) für ein \(X \in \Ob(\mathcal{C})\) ist.
+        Wir sagen dann, \(A\) stellt \(\mathcal{F}\) dar.
         % Ein Paar \((A, a)\) mit \(a \in \mathcal{F}(A)\) \emph{repräsentiert} \(\mathcal{F}\), wenn die natürliche Transformation gegeben durch
         % \[\eta_a : h^A = \Hom_\mathcal{C}(A, \;\cdot\;) \longrightarrow \mathcal{F}(\;\cdot\;), \quad f \mapsto \mathcal{F}(f)(a)\]
         % natürlicher Isomorphismus ist.
@@ -281,11 +288,6 @@
         \[\xi : \mathcal{F}(A) \longrightarrow \text{Nat}(h^A, \mathcal{F}), \qquad a \mapsto \eta_a\]
     \end{lemma}
     \begin{proof}
-        Zu zeigen ist
-        \begin{enumerate}
-            \item \(\theta\) und \(\xi\) sind zueinander invers,
-            \item \(\eta_a\) ist natürliche Transformation. \qedhere
-        \end{enumerate}
         % Sei \(x \in \mathcal{F}(X) \in \Ob(\textbf{Set})\) ein Element.
         % Für jedes \(Y \in \Ob(\mathcal{C})\) definieren wir die Abbildung
         % \[\tau(x)_Y : h^X(Y) = \Hom_{\mathcal{C}}(X, Y) \longrightarrow \mathcal{F}(Y), \qquad f \mapsto \mathcal{F}(f)(x).\]
@@ -322,11 +324,10 @@
         Dies ist ein Spezialfall des Yoneda-Lemma mit \(\mathcal{F} = h^B\).
     \end{proof}
 
-    \begin{bemerkung}
-        \Cref{kor:1} kann auch so ausgedrückt werden, dass wir einen volltreuen, kontravarianten Funktor von der Kategorie \(\mathcal{C}\) in die Kategorie \(\mathcal{C}^\vee\) der Funktoren zwischen \(\mathcal{C}\) und \textbf{Set} erhalten.
-        Dieser ist gegeben durch 
-        \[\mathcal{C} \longrightarrow \mathcal{C}^\vee, \qquad A \rightsquigarrow h^A.\]
-        Betrachtet man die Unterkategorie der darstellbaren Funktoren \(\mathcal{C}_\text{rep}^\vee\), so sind also \(\mathcal{C}\) und \(\mathcal{C}^\vee_\text{rep}\) zueinander duale Kategorien.
+    \begin{bemerkung}\label{bem:2}
+        Insbesondere erhalten wir aus \Cref{kor:1}, dass der Funktor
+        \[\mathcal{C} \longrightarrow \mathcal{C}^\vee, \qquad A \mapsto h^A,\]
+        von der Kategorie \(\mathcal{C}\) in die Funktorkategorie \(\mathcal{C}^\vee = \text{Fun}(\mathcal{C}, \textbf{Set})\) kontravariant und volltreu ist. % Morphismen in C^\vee sind genau Nat. Trafos!!
     \end{bemerkung}
 
 
@@ -375,40 +376,69 @@
         Sei \(I = \brackets{X^2 + 1} \trianglelefteq k[X]\) Ideal.
         \begin{enumerate}
             \item Für \(k = \R\) ist \(V(I) = \emptyset\), damit \(I(V(I)) = I(\emptyset) = k[X] \neq I\).
-            \item Für \(k = \C\) ist aber \(V(I) = \{-i, i\}\) und damit 
+            \item Für \(k = \C\) ist hingegen \(V(I) = \{-i, i\}\) und damit 
                 \[I(V(I)) = \brackets{X - i} \cap \brackets{X + i} = \brackets{X^2 + 1} = I.\]
         \end{enumerate}
     \end{beispiel}
 
-    Die Geometrie wird also nicht mehr genügend Informationen enthalten in dem Sinne, dass Punkte die wir sehen sollten fehlen.
-    Wir wollen im Folgenden die geometrischen Objekte über allen Körpererweiterungen und sogar \(k\)-Algebraerweiterungen \emph{gleichzeitig} betrachten.
-    Dafür bietet sich das Konzept von Funktoren passend an.
-
-    \begin{definition}
-        Sei \(k\) ein (beliebiger) Körper, \(I \trianglelefteq k[X_1, \ldots, X_n]\) ein Ideal und \(A = \ringquot{k[X_1, \ldots, X_n]}{I}\).
-        Für jede \(k\)-Algebra \(R \in k\textbf{-Alg}\) definieren wir die Menge
-        \[V_R(I) := \{x \in R^n \;\vert\; f(x) = 0 \;\text{für alle}\; f \in I\},\]
-        genannt die \emph{\(R\)-wertigen Punkte} von \(A\).
-    \end{definition}
-
-    \begin{bemerkung}
-        Bezeichne mit \(ev_x\) den Auswertungshomomorphismus, gegeben durch
-        \[ev_x : A \longrightarrow R, \qquad f \mapsto f(x),\]
-        dann erhalten wir eine Bijektion
-        \[V_R(I) \longrightarrow \Hom_{k\textbf{-Alg}}(A, R), \qquad x \mapsto ev_x.\]
-        Wir können die Menge \(V_R(I)\) also mit den \(k\)-Algebra Homomorphismen \(A \to R\) identifizieren.
-    \end{bemerkung}
+    % Die Geometrie wird also nicht mehr genügend Informationen enthalten in dem Sinne, dass Punkte die wir eigentlich sehen sollten fehlen.
+    % Wir wollen im Folgenden die geometrischen Objekte über allen Körpererweiterungen und sogar \(k\)-Algebraerweiterungen \emph{gleichzeitig} betrachten.
+    % Im Folgenden sehen wir, dass die Sichtweise der Funktoren wie dafür gemacht ist.
+    Es fehlen unserer Geometrie also Punkte, die aus algebraischer Sicht vorhanden sein sollten.
+    Wir wollen im folgenden daher die geometrischen Objekte über beliebigen Körper- und sogar \(k\)-Algebraerweiterungen betrachten.
+    Dies wollen wir am liebsten simultan tun und wir werden sehen, dass sich die funktorielle Sicht hierfür aufdrängt.
 
     \begin{definition}
         \begin{enumerate}
-            \item Ein \emph{\(k\)-Funktor} \(\mathcal{F}\) ist ein Funktor von der Kategorie der \(k\)-Algebren in die Kategorie \textbf{Set}, also ein Funktor der Form \(\mathcal{F}: k\textbf{-Alg} \to \textbf{Set}\).
-            \item Zu einer \(k\)-Algebra \(A \in \Ob(k\textbf{-Alg})\) betrachte den Hom-Funktor
+            \item Ein \emph{\(k\)-Funktor} \(\mathcal{F}\) ist ein Funktor von der Kategorie der (endlich erzeugten) \(k\)-Algebren in die Kategorie \textbf{Set}, also ein Funktor der Form \(\mathcal{F}: k\textbf{-Alg} \to \textbf{Set}\).
+            \item Zu einer \(k\)-Algebra \(A \in \Ob(k\textbf{-Alg})\) betrachte den Funktor
                 \[h^A : k\textbf{-Alg} \longrightarrow \textbf{Set}, \qquad R \mapsto \Hom_{k\textbf{-Alg}}(A, R).\]
                 Ein \(k\)-Funktor \(\mathcal{F}\) heißt \emph{affin}, wenn es eine endlich erzeugte \(k\)-Algebra \(A\) gibt, mit \(h^A \cong \mathcal{F}\).
                 Die Algebra \(A\) \emph{repräsentiert} also den \(k\)-Funktor \(\mathcal{F}\); \(A\) wird auch \emph{Koordinatenring} oder \emph{Koordinatenalgebra} von \(\mathcal{F}\) genannt.
-                Wir schreiben \(A = k[\mathcal{F}]\).
+                Schreibe auch \(A = k[\mathcal{F}]\).
         \end{enumerate}
     \end{definition}
+
+    \begin{definition}
+        Sei \(k\) ein Körper, \(I \trianglelefteq k[X_1, \ldots, X_n]\) ein Ideal und \(A = \ringquot{k[X_1, \ldots, X_n]}{I}\) Faktorring.
+        Für jede \(k\)-Algebra \(R \in \Ob(k\textbf{-Alg})\) definieren wir die Menge
+        \[V_R(I) := \{x \in R^n \;\vert\; f(x) = 0 \;\text{für alle}\; f \in I\},\]
+        genannt die Menge der \emph{\(R\)-wertigen Punkte} von \(A\).
+    \end{definition}
+
+    \begin{bemerkung}
+        Sei \(I \trianglelefteq \polynomials\) ein Ideal, definiere den \(k\)-Funktor
+        \[V_{(\;\cdot\;)}(I): k\textbf{-Alg} \longrightarrow \textbf{Set}, \qquad R \mapsto V_R(I).\]
+        Bezeichne weiter mit \(ev_x\) den Auswertungshomomorphismus, gegeben durch
+        \[ev_x : A = \ringquot{\polynomials}{I} \longrightarrow R, \qquad f \mapsto f(x),\]
+        dann erhalten wir für jedes \(R \in \Ob(k\textbf{-Alg})\) eine Bijektion
+        \[V_R(I) \longrightarrow \Hom_{k\textbf{-Alg}}(A, R), \qquad x \mapsto ev_x.\]
+        Wir nennen den Funktor \(V_{(\;\cdot\;)}(I)\) auch den \emph{Punktfunktor} zu \(I\).
+        Nach \Cref{def:darstellbar} wird dieser durch die \(k\)-Algebra \(A\) dargestellt, da nach obigem gilt: \(V_{(\;\cdot\;)}(I) \cong h^A\).
+        % Dies bedeutet gerade, dass der sogenannte \emph{Punktfunktor} \(V_{(\;\cdot\;)}(I): k\textbf{-Alg} \to \textbf{Set}\) isomorph zu dem Funktor \(h^A = \Hom_{k\textbf{-Alg}}(A, \;\cdot\;)\) ist.
+        % Nach \Cref{def:darstellbar} wird der Punktfunktor also durch die \(k\)-Algebra \(A\) dargestellt.
+    \end{bemerkung}
+    \begin{proof}
+        \begin{enumerate}
+            \item {\itshape Injektivität:}
+                Sei \(X_i \in k[X_1, \ldots, X_n]\) die \(i\)-te Koordinatenfunktion und \(x_i\) ihr Bild im Faktorring \(A = \ringquot{k[X_1, \ldots, X_n]}{I}\).
+                Für \(v = (v_1, \ldots, v_n) \in V_R(I)\) ist
+                \[ev_v(x_i) = x_i(v) = X_i(v) = v_i,\]
+                also
+                \[v = (ev_v(x_i), \ldots, ev_v(x_n)).\]
+                Damit ist \(v\) eindeutig durch \(ev_v\) festgelegt, die Abbildung also injektiv.
+
+            \item {\itshape Surjektivität:} Sei \(\varphi \in \Hom_{k\textbf{-Alg}}(A, R)\) und 
+                \[x := (\varphi(x_1), \ldots, \varphi(x_n)) \in R^n.\]
+                Betrachte \(\widetilde{\varphi} \in \Hom_{k\textbf{-Alg}}(k[X_1, \ldots, X_n], R)\), gegeben durch die Komposition
+                \[k[X_1, \ldots, X_n] \xrightarrow{\;\text{proj.}\;} \ringquot{k[X_1, \ldots, X_n]}{I} = A \xrightarrow{\;\;\varphi\;\;} R.\]
+                Dann gilt \(\varphi (x_i) = \widetilde{\varphi}(X_i)\) für alle \(i \in \{1, \ldots, n\}\) und \(\widetilde{\varphi}(f) = 0\) für jedes \(f \in I\), also folgt
+                % Für jedes \(f \in I\) gilt weiterhin \(\widetilde{\varphi}(f) = 0\) und es folgt
+                \[f(x) = f(\widetilde{\varphi}(X_1), \ldots, \widetilde{\varphi}(X_n)) = \widetilde{\varphi}(f) = 0,\]
+                da \(\varphi\) \(k\)-Algebrahomomorphismus.
+                Also ist \(x \in V_R(I)\) und \(ev_x = \varphi\).\qedhere
+        \end{enumerate}
+    \end{proof}
 
     
     % ****************************************
@@ -424,18 +454,35 @@
             \item Eine \emph{affine algebraische Gruppe} ist ein \(k\)-Gruppenfunktor \(\mathcal{G}\) sodass der zugrundeliegende \(k\)-Funktor \(\mathcal{G}^{\textbf{Set}}\) affin ist.
             
             \item Wenn \(\mathcal{G}\) eine affine algebraische Gruppe ist, dann wird \(\mathcal{G}^{\textbf{Set}}\) von einer eindeutigen endlich erzeugten \(k\)-Algebra \(A\) repräsentiert.
-                Diese wird \emph{Koordinatenring}, oder \emph{Koordinatenalgebra} von \(\mathcal{G}\) genannt und bezeichnet mit \(k[\mathcal{G}]\).
+                Diese wird \emph{Koordinatenring}, oder \emph{Koordinatenalgebra} von \(\mathcal{G}\) genannt und wird mit \(k[\mathcal{G}]\) bezeichnet.
 
             % TODO: morphismen zwischen a g sind nat trafos
+            \item Morphismen zwischen affinen algebraischen Gruppen \(\mathcal{G}\) und \(\mathcal{H}\) sind natürliche Transformationen zwischen den \(k\)-Gruppenfunktoren.
         \end{enumerate}
     \end{definition}
+
+    \begin{bemerkung}
+        Für die Eindeutigkeit in obiger Definition, nehme an \(\mathcal{G}^\textbf{Set}\) sei repräsentiert von zwei \(k\)-Algebren \(A\) und \(B\).
+        Es gilt also \(\mathcal{G}^\textbf{Set} \cong h^A\) und \(\mathcal{G}^\textbf{Set} \cong h^B\), insbesondere \(h^A \cong h^B\).
+        Da der Funktor \(A \mapsto h^A\) volltreu ist nach \Cref{bem:2}, folgt die Eindeutigkeit aus folgendem allgemeineren Resultat.
+    \end{bemerkung}
+
+    \begin{lemma}
+        Seien \(\mathcal{C}, \mathcal{D}\) Kategorien und \(\mathcal{F}: \mathcal{C} \to \mathcal{D}\) ein volltreuer Funktor.
+        Dann gilt
+        \[\mathcal{F}(X) \cong \mathcal{F}(Y) \qquad\iff\qquad X \cong Y,\]
+        für alle \(X, Y \in \Ob(\mathcal{C})\).
+    \end{lemma}
+    \begin{proof}
+        % TODO: Beweis
+    \end{proof}
 
     \begin{beispiel}
         \begin{enumerate}
             \item Der Funktor definiert durch
                 \[k\textbf{-Alg} \longrightarrow \textbf{Grp}, \qquad R \mapsto (R, +)\]
                 wird mit \(\mathbb{G}_a\) bezeichnet.
-                Für jedes \(R \in \Ob(k\textbf{-Alg})\) können wir \(\mathbb{G}_a\) mit \(\Hom_{k\textbf{-Alg}}(k[t], R)\) identifizieren.
+                Für jedes \(R \in \Ob(k\textbf{-Alg})\) können wir \(\mathbb{G}_a\) mit \(\Hom_{k\textbf{-Alg}}(k[X], R)\) identifizieren.
                 Für den Koordinatenring \(k[\mathbb{G}_a]\) gilt dann \[k[\mathbb{G}_a] \cong k[X].\]
                 Die affine algebraische Gruppe \(\mathbb{G}_a\) wird \emph{additive (algebraische) Gruppe über \(k\)} genannt.
 
@@ -446,7 +493,7 @@
 
             \item Für \(n \in \N\) betrachte \(\text{GL}_n\) als den Funktor
                 \[k\textbf{-Alg} \longrightarrow \textbf{Grp}, \qquad R \mapsto \text{GL}_n(R).\]
-                Damit wird auch \(\text{GL}_n\) zu einer algebraischen Gruppe mit
+                Damit wird auch \(\text{GL}_n\) zu einer algebraischen Gruppe mithilfe des Tricks von Rabinowitsch
                 \[k[\text{GL}_n] \cong \ringquot{k[X_1, \ldots, X_n, t]}{(t \cdot \det(X_{ij}) - 1)}.\]
 
             \item Der Funktor \(\text{GL}_1\) wird auch mit \(\mathbb{G}_m\) bezeichnet und entspricht dem Funktor
@@ -459,7 +506,7 @@
                 \[k\textbf{-Alg} \longrightarrow \textbf{Grp}, \qquad R \mapsto \{\ast\}\]
                 und wird deshalb die \emph{triviale algebraische Gruppe über \(k\)} genannt.
                 Es gilt weiter
-                \[k[1] \cong \ringquot{k[X]}{(X-1)} \cong k.\]
+                \[k[\text{SL}_1] \cong \ringquot{k[X]}{(X-1)} \cong k.\]
 
             \item Für \(n \in \N\) definiere den mit \(\mu_n\) bezeichneten Funktor
                 \[k\textbf{-Alg} \longrightarrow \textbf{Grp}, \qquad R \mapsto \{r \in R \;\vert\; r^n = 1\}.\]
@@ -470,17 +517,17 @@
 
     \begin{definition}
         Sei \(\mathcal{G}\) ein \(k\)-Gruppenfunktor.
-        Die Multiplikation, die Inverse und das neutrale Element jedes Objekts in \(\mathcal{G}(R)\) definiert natürliche Transformationen
+        Die Multiplikation, die Inverse und das neutrale Element in \(\mathcal{G}(R)\) definieren natürliche Transformationen
         \begin{gather*}
             \mu : \mathcal{G} \times \mathcal{G} \longrightarrow \mathcal{G}, \\
             \iota : \mathcal{G} \longrightarrow \mathcal{G}, \\
             e : \ast \longrightarrow \mathcal{G}.
         \end{gather*}
-        Nach \Cref{kor:1} induzieren diese Morphismen auf der \(k\)-Algebra \(k[\mathcal{G}]\)
+        Nach \Cref{kor:1} induzieren diese Co-Morphismen auf der \(k\)-Algebra \(k[\mathcal{G}]\)
         \begin{gather*}
             \Delta : k[\mathcal{G}] \longrightarrow k[\mathcal{G}] \otimes_k k[\mathcal{G}], \\
             S: k[\mathcal{G}] \longrightarrow k[\mathcal{G}], \\
-            \epsilon : k[\mathcal{G}] \longrightarrow k.
+            \varepsilon : k[\mathcal{G}] \longrightarrow k.
         \end{gather*}
         Diese heißen \emph{Comultiplikation}, \emph{Coinverse} und \emph{Coeinheit}.
     \end{definition}
@@ -488,23 +535,23 @@
     \begin{beispiel}
         \begin{enumerate}
             \item Betrachte die additive algebraische Gruppe \(\mathcal{G} = \mathbb{G}_a : R \longrightarrow (R, +)\) mit darstellender Algebra \(k[\mathbb{G}_a] \cong k[X]\) dem Polynomring in einer Variablen.
-                Dann ist für jede \(k\)-Algebra \(R \in k\textbf{-Alg}\) folgende Abbildung eine Bijektion
+                Dann ist für jede \(k\)-Algebra \(R \in \Ob(k\textbf{-Alg})\) folgende Abbildung eine Bijektion
                 \[\Hom_{k\textbf{-Alg}}(k[X], R) \longrightarrow (R, +), \qquad \varphi \mapsto \varphi(X).\]
                 Für \(\mathbb{G}_a \times \mathbb{G}_a\) gilt
-                \[k[\mathbb{G}_a \times \mathbb{G}_a] \cong k[X] \otimes_k k[X] \cong k[X_1, X_2]\]
+                \[k[\mathbb{G}_a \times \mathbb{G}_a] \cong k[X] \otimes_k k[X] \cong k[X \otimes 1, 1 \otimes X]\]
                 und analog ist folgende Abbildung eine Bijektion
-                \[\Hom_{k\textbf{-Alg}}(k[X_1, X_2], R) \longrightarrow (R \times R, +), \qquad \varphi \mapsto (\varphi(X_1), \varphi(X_2)).\]
+                \[\Hom_{k\textbf{-Alg}}(k[X \otimes 1, 1 \otimes X], R) \longrightarrow (R \times R, +), \qquad \varphi \mapsto (\varphi(X \otimes 1), \varphi(1 \otimes X)).\]
                 Die natürliche Transformation \(\mu: \mathbb{G}_a \times \mathbb{G}_a \to \mathbb{G}_a\) induziert dann für jede \(k\)-Algebra \(R\) einen Morphismus
-                \[\mu_R : \Hom_{k\textbf{-Alg}}(k[X_1, X_2], R) \longrightarrow \Hom_{k\textbf{-Alg}}(k[X], R)\]
+                \[\mu_R : \Hom_{k\textbf{-Alg}}(k[X \otimes 1, 1 \otimes X], R) \longrightarrow \Hom_{k\textbf{-Alg}}(k[X], R)\]
                 und wir erhalten das kommutative Diagramm: 
                 \begin{figure*}[ht!]
                     \centering
                     \begin{tikzcd}
-                        {\Hom_{k\textbf{-Alg}}(k[X_1, X_2], R)} \arrow[d] \arrow[r, "\mu_R"] & {\Hom_{k\textbf{-Alg}}(k[X], R)} \arrow[d] \\
+                        {\Hom_{k\textbf{-Alg}}(k[X \otimes 1, 1 \otimes X], R)} \arrow[d] \arrow[r, "\mu_R"] & {\Hom_{k\textbf{-Alg}}(k[X], R)} \arrow[d] \\[2.25em]
                         {(R \times R, +)} \arrow[r, "\text{Addition}"]                       & {(R, +)}                                  
                     \end{tikzcd}
                 \end{figure*} \\
-                Insgesamt haben wir \[\mu_R(\varphi)(X) = \varphi(X_1) + \varphi(X_2) = \varphi(X \otimes 1 + 1 \otimes X)\]
+                Insgesamt haben wir \[\mu_R(\varphi)(X) = \varphi(X \otimes 1) + \varphi(1 \otimes X) = \varphi(X \otimes 1 + 1 \otimes X)\]
                 für jede \(k\)-Algebra \(R\).
                 Nach \Cref{lem:yoneda} ist die Comultiplikation gegeben durch
                 \[\Delta = \mu_{k[\mathcal{G}] \otimes k[\mathcal{G}]}(\id_{k[\mathcal{G}] \otimes k[\mathcal{G}]}),\]
@@ -513,9 +560,9 @@
                 Analog erhält man \[S(X) = -X \qquad\text{und}\qquad \epsilon(X) = 0.\]
 
             \item Für die multiplikative Guppe \(\mathbb{G}_m : R \to (R^\times, \;\cdot\;)\), mit darstellender \(k\)-Algebra gegeben durch \(k[\mathbb{G}_m] = k[X, X^{-1}]\), ist die Multiplikation gegeben durch
-                \[\mu_R(\varphi)(X) = \varphi(X_1)\varphi(X_2) = \varphi((X \otimes 1)(1 \otimes X)) = \varphi(X \otimes X),\]
+                \[\mu_R(\varphi)(X) = \varphi(X \otimes 1)\varphi(1 \otimes X) = \varphi((X \otimes 1)(1 \otimes X)) = \varphi(X \otimes X),\]
                 für jede \(k\)-Algebra \(R\).
-                Die Comultiplikation ist also gegeben durch 
+                Die Comultiplikation ist dann gegeben durch 
                 \[\Delta (X) = X \otimes X.\]
                 Die Coinverse und Coeinheit sind gegeben durch
                 \[S(X) = X^{-1} \qquad\text{und}\qquad \epsilon(X) = 1.\]
@@ -528,7 +575,7 @@
         \begin{gather*}
             \mu: \mathcal{G} \times \mathcal{G} \longrightarrow \mathcal{G}, \\
             \iota: \mathcal{G} \longrightarrow \mathcal{G}, \\
-            e: \{\ast\} \longrightarrow \mathcal{G}
+            e: \ast \longrightarrow \mathcal{G}
         \end{gather*}
         gibt, sodass die folgenden Diagramme kommutieren:
         \begin{figure*}[ht!]
@@ -542,11 +589,11 @@
             \centering
             \begin{tikzcd}
                 G \times \ast \arrow[rr, "\id\times e"] \arrow[d, "\cong"'] &  & G \times G \arrow[d, "\mu"] \\[2em]
-                G \arrow[rr, "\mu", Rightarrow, no head]                    &  & G                          
+                G \arrow[rr, Rightarrow, no head]                           &  & G                          
             \end{tikzcd}\hspace*{4em}
             \begin{tikzcd}
                 \ast\times G \arrow[rr, "e \times\id"] \arrow[d, "\cong"'] &  & G \times G \arrow[d, "\mu"] \\[2em]
-                G \arrow[rr, "\mu", no head, Rightarrow]                   &  & G                          
+                G \arrow[rr, Rightarrow, no head]                          &  & G                          
             \end{tikzcd}
         \end{figure*}
         \begin{figure*}[ht!]
@@ -573,7 +620,7 @@
         \begin{gather*}
             \Delta: A \longrightarrow A \otimes A, \\
             S: A \longrightarrow A, \\
-            \epsilon: A \longrightarrow k
+            \varepsilon: A \longrightarrow k
         \end{gather*}
         gibt, sodass die folgenden Diagramme kommutieren
         \begin{figure*}[ht!]
@@ -586,11 +633,11 @@
         \begin{figure*}[ht!]
             \centering
             \begin{tikzcd}
-                A \arrow[rr, "\Delta"] \arrow[d, Rightarrow, no head] &  & A\otimes A \arrow[d, "\id\otimes \epsilon"] \\[2em]
+                A \arrow[rr, "\Delta"] \arrow[d, Rightarrow, no head] &  & A\otimes A \arrow[d, "\id\otimes \varepsilon"] \\[2em]
                 A \arrow[rr, "\cong"]                                 &  & A \otimes k                                
             \end{tikzcd}\hspace*{4em}
             \begin{tikzcd}
-                A \arrow[rr, "\Delta"] \arrow[d, Rightarrow, no head] &  & A\otimes A \arrow[d, "\epsilon\otimes\id"] \\[2em]
+                A \arrow[rr, "\Delta"] \arrow[d, Rightarrow, no head] &  & A\otimes A \arrow[d, "\varepsilon\otimes\id"] \\[2em]
                 A \arrow[rr, "\cong"]                                 &  & k \otimes A                                
             \end{tikzcd}
         \end{figure*}
@@ -648,7 +695,7 @@
         Die Kategorie der affinen algebraischen \(k\)-Gruppen ist anti-äquivalent (dual) zur Kategorie der kommutativen endlich erzeugten Hopf-Algebren.
     \end{korollar}
     \begin{proof}
-        Dies folgt aus \Cref{prop:1}.
+        Dies ist eine direkte Kosequenz von \Cref{prop:1}.
     \end{proof}
 
 
@@ -687,22 +734,37 @@
         \end{figure*}
     \end{definition}
 
-    \begin{proposition}
+    \begin{proposition}\label{prop:2}
         Sei \(\mathcal{G}\) eine affine algebraische \(k\)-Gruppe mit Koordinatenring \(A = k[\mathcal{G}]\).
         \begin{enumerate}
             \item Sei \(\rho : \mathcal{G} \to \text{GL}_V\) eine Darstellung und sei \(m\) die Einschränkung von
                 \[\rho_A(\id_A) \in \text{GL}_V(A) = \text{GL}(A \otimes_k V)\]
                 auf \(V\).
-                Dann ist das Paar \(V, m\) ein \(A\)-Comodul.
+                Dann ist das Paar \((V, m)\) ein \(A\)-Comodul.
 
             \item Umgekehrt, sei \((V, m)\) ein \(A\)-Comodul, und sei \(\rho: \mathcal{G} \to \text{GL}_V\) die \emph{natürliche Darstellung} gegeben durch
                 \[\rho_R(g) := (g \otimes \id_V) \circ m \qquad \text{für alle}\; g \in \mathcal{G}(R) = \Hom_{k\textbf{-Alg}}(A, R).\]
-                Dann ist \(\rho\) eine Darstellung für \(\mathcal{G}\).
+                Dann ist \(\rho\) eine Darstellung für \(\mathcal{G}\), genannt \(\mathcal{G}\)-Darstellung.
         \end{enumerate}
     \end{proposition}
     \begin{proof}[Ohne Beweis.]
     \end{proof}
     
+    \begin{bemerkung}\label{bem:3}
+        Sei \(\mathcal{G}\) eine affine algebraische Gruppe mit Koordinatenalgebra \(k[\mathcal{G}]\) und \(\Delta\) die auf \(k[\mathcal{G}]\) definierte Comultiplikation.
+        Dann ist das Paar \((k[\mathcal{G}], \Delta)\) ein \(k[\mathcal{G}]\)-Comodul und nach \Cref{prop:2} induziert dieser eine Darstellung von \(\mathcal{G}\) auf sich selbst.
+    \end{bemerkung}
+
+    \begin{definition}
+        Die induzierte Darstellung aus \Cref{bem:3} wird \emph{reguläre Darstellung} genannt.
+    \end{definition}
+
+    \begin{lemma}
+        Jede \(\mathcal{G}\)-Darstellung \((V, m)\) einer affinen algebraischen Gruppe \(\mathcal{G}\) ist lokal endlich.
+    \end{lemma}
+    \begin{proof}[Ohne Beweis]
+    \end{proof}
+
     \begin{satz}
         Sei \(\mathcal{G}\) eine affine algebraische Gruppe über \(k\).
         Dann gibt es einen endlich-dimensionalen \(k\)-Vektorraum \(V\) und einen injektiven Morphismus \(\rho: \mathcal{G} \hookrightarrow \text{GL}_V\).
@@ -715,9 +777,4 @@
         Affine algebraische Gruppen über \(k\) sind linear, d.h. sie sind abgeschlossene Untergruppen einer Gruppe \(\text{GL}_n\).
         Insbesondere sind alle affine algebraische Gruppen Matrixgruppen.
     \end{korollar}
-
-    \begin{beispiel}
-        
-    \end{beispiel}
-
 \end{document}
