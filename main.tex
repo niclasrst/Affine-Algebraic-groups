@@ -29,6 +29,7 @@
 \hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black}
 \usepackage[nameinlink,german]{cleveref}
 \Crefname{proposition}{Proposition}{Propositionen}
+\usepackage{url}
 
 % shortcuts
 \newcommand{\N}{\mathbb{N}}
@@ -127,9 +128,9 @@
     \begin{erinnerung}
         Sei \(R\) ein kommutativer Ring mit \(1\).
         \begin{enumerate}
-            \item Eine \emph{\(R\)-Algebra} ist ein (nicht unbedingt kommutativer) Ring \(A\) mit Einselement, der auch ein \(R\)-Modul ist, sodass die Multiplikation in \(A\) bilinear ist:
+            \item Eine \emph{\(R\)-Algebra} ist ein (nicht unbedingt kommutativer) Ring \(A\) mit Einselement, der auch ein \(R\)-Modul ist, sodass die Multiplikation in \(A\) bilinear ist und
                 \[\lambda x \cdot y = x \cdot \lambda y = \lambda \cdot (xy)\]
-                für alle \(x,y \in A\) und alle \(\lambda \in R\).
+                für alle \(x,y \in A\) und alle \(\lambda \in R\) gilt.
 
             \item Das \emph{Zentrum} einer \(R\)-Algebra \(A\) ist die Unteralgebra
                 \[Z(A) := \{a \in A \;\vert\; ax = xa \; \text{für alle} \; x \in A\}.\]
@@ -333,7 +334,7 @@
         Insbesondere erhalten wir aus \Cref{kor:1}, dass der Funktor
         \[\mathcal{C} \longrightarrow \mathcal{C}^\vee, \qquad A \mapsto h^A,\]
         von der Kategorie \(\mathcal{C}\) in die Funktorkategorie \(\mathcal{C}^\vee = \textbf{Fun}(\mathcal{C}, \textbf{Set})\) kontravariant und volltreu ist. % Morphismen in C^\vee sind genau Nat. Trafos!!
-        Durch Einschränkung erhalten wir eine Dualität zwischen der Kategorie \(\CC\) und der (vollen\footnote[1]{eine Unterkategorie \(\mathcal{U}\) (ist das was man sich auch darunter vorstellt) heißt voll, wenn für alle Objektpaare in \(\CC\) gilt \(\Hom_{\C}(A, B) = \Hom_{\mathcal{K}}(A, B)\).} Unter-) Kategorie der darstellbaren Funktoren \(\CC_{\text{rep}}^\vee\).
+        Durch Einschränkung erhalten wir eine Dualität zwischen der Kategorie \(\CC\) und der (vollen\footnote[1]{eine Unterkategorie \(\mathcal{U}\) (ist das was man sich auch darunter vorstellt) heißt voll, wenn für alle Objektpaare in \(\CC\) gilt \(\Hom_{\C}(A, B) = \Hom_{\mathcal{K}}(A, B)\). Siehe z.B. \url{https://de.wikipedia.org/wiki/Kategorientheorie}.} Unter-) Kategorie der darstellbaren Funktoren \(\CC_{\text{rep}}^\vee\).
         Weiter gilt mit \Cref{lem:3} für \(A, B \in \Ob(\CC)\)
         \[h^A \cong_{\CC^\vee} h^B \quad\iff\quad A \cong_\CC B.\]
     \end{bemerkung}
@@ -491,7 +492,7 @@
             \item Wenn \(\mathcal{G}\) eine affine algebraische Gruppe ist, dann wird \(\mathcal{G}^{\textbf{Set}}\) von einer eindeutigen endlich erzeugten \(k\)-Algebra \(A\) repräsentiert.
                 Diese wird \emph{Koordinatenring}, oder \emph{Koordinatenalgebra} von \(\mathcal{G}\) genannt und wird mit \(k[\mathcal{G}]\) bezeichnet.
 
-´            \item Morphismen zwischen affinen algebraischen Gruppen \(\mathcal{G}\) und \(\mathcal{H}\) sind (wie bei \(k\)-Funktoren) natürliche Transformationen zwischen den \(k\)-Gruppenfunktoren.
+            \item Morphismen zwischen affinen algebraischen Gruppen \(\mathcal{G}\) und \(\mathcal{H}\) sind (wie bei \(k\)-Funktoren) natürliche Transformationen zwischen den \(k\)-Gruppenfunktoren.
         \end{enumerate}
     \end{definition}
 
